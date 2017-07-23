@@ -21,7 +21,16 @@ class Animator {
   render(sprite, stepX, stepY) {
     stepX = stepX || 0;
     stepY = stepY || 0;
-    this.context.drawImage(sprite.image, sprite.keyWidth * stepX, sprite.keyHeight * stepY, sprite.keyWidth, sprite.keyHeight, 0, 0, sprite.keyWidth, sprite.keyHeight);
+    this.context.drawImage(
+      sprite.image,
+      sprite.keyWidth * stepX,
+      sprite.keyHeight * stepY,
+      sprite.keyWidth,
+      sprite.keyHeight,
+      0,
+      0,
+      sprite.keyWidth,
+      sprite.keyHeight);
   }
 
   update(animation) {

@@ -3,12 +3,13 @@ class Animator {
     this.canvas = document.getElementById("main");
     this.canvas.height = 100;
     this.canvas.width = 100;
-    this.context = this.canvas.getContext("2d");
+    this.context = "2d";
     this.fps = 30;
     this.sprites = [];
   }
 
   addSprite(sprite) {
+    sprite.context = this.canvas.getContext("2d");
     this.sprites[sprite.name] = sprite;
     return this;
   }
@@ -16,21 +17,6 @@ class Animator {
   removeSprite(name) {
     delete this.sprites[name];
     return this;
-  }
-
-  render(sprite, stepX, stepY) {
-    stepX = stepX || 0;
-    stepY = stepY || 0;
-    this.context.drawImage(
-      sprite.image,
-      sprite.keyWidth * stepX,
-      sprite.keyHeight * stepY,
-      sprite.keyWidth,
-      sprite.keyHeight,
-      0,
-      0,
-      sprite.keyWidth,
-      sprite.keyHeight);
   }
 
   update(animation) {

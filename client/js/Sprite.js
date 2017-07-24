@@ -21,6 +21,7 @@ class Sprite {
       isPlaying: false,
       loop: loop || false,
       ticks: 0,
+      startIndex: columnStart + (rowStart * this.columns),
       index: columnStart + (rowStart * this.columns),
       currentRow: rowStart 
     };
@@ -33,11 +34,10 @@ class Sprite {
   }
 
   render(animation) {
-    let a = this.animations[animation];
     this.context.drawImage(
       this.image,
-      this.keyWidth * (this.columns - Math.floor(a.index / this.rows)),
-      this.keyHeight * (this.rows - Math.floor(a.index / this.columns)),
+      this.keyWidth * (animation.index - (this.columns * Math.floor(animation.index / this.columns))),
+      this.keyHeight * (Math.floor(animation.index / this.columns)),
       this.keyWidth,
       this.keyHeight,
       0,

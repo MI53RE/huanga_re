@@ -15,15 +15,14 @@ class Sprite {
 
   addAnimation(name, columnStart, rowStart, length, loop) {
     this.animations[name] = {
-      x: columnStart,
-      y: rowStart,
-      length: length,
+      x: columnStart - 1,
+      y: rowStart - 1,
+      length: length - 1,
       isPlaying: false,
       loop: loop || false,
       ticks: 0,
-      startIndex: columnStart + (rowStart * this.columns),
-      index: columnStart + (rowStart * this.columns),
-      currentRow: rowStart 
+      startIndex: (columnStart - 1) + ((rowStart - 1) * this.columns),
+      index: (columnStart - 1) + ((rowStart - 1) * this.columns)
     };
     return this;
   }

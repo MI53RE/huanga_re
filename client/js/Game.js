@@ -6,7 +6,11 @@ player.addAnimation("down", 1, 1, 8, true);
 player.addAnimation("left", 1, 2, 8, true);
 player.addAnimation("right", 1, 3, 8, true);
 player.addAnimation("up", 1, 4, 8, true);
-player.addAnimation("all", 1, 1, 32, true);
+let ground = new Sprite("player", "./img/ground.png", 4, 1);
+ground.addAnimation("1", 1, 1, 1, true);
+ground.addAnimation("2", 1, 1, 2, true);
+ground.addAnimation("3", 1, 1, 3, true);
+ground.addAnimation("4", 1, 1, 4, true);
 let tree = new Sprite("tree", "./img/tree_spr.png", 1, 1);
 tree.addAnimation("tree", 1, 1, 1, true);
 gameAnimator.addSprite(player);
@@ -49,10 +53,12 @@ setInterval(function(){
   }
 }, 5);
 
-
-const ratioValues = [
-  {v: 1, r: [0,75]}, // 75% chance to get 1
-  {v: 2, r: [76,100]} // 100-75 = 25% chance to get 2
+// will be use to randomise the ground
+const groundRatioValues = [
+  {v: 1, r: [0,30]},
+  {v: 2, r: [31,40]},
+  {v: 3, r: [41,70]},
+  {v: 4, r: [71,100]}
 ];
 function getRandByRatio(ratioValues) {
   let idx = Math.floor(Math.random() * (100 + 1));
@@ -63,5 +69,11 @@ function getRandByRatio(ratioValues) {
   }
 }
 
-
+function generateGround(animator, sprite) {
+  for (let i = 0; i < animator.canvas.width; i += sprite.keyWidth) {
+    for (let j = 0; j < animator.canvas.height; j += sprite.keyHeight) {
+      
+    }
+  }
+}
 

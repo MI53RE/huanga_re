@@ -14,15 +14,19 @@ class Sprite {
   }
 
   addAnimation(name, columnStart, rowStart, length, loop) {
+    let cstart = columnStart - 1;
+    let rstart = rowStart - 1;
+    let sindex = (cstart) + ((rstart) * this.columns);
     this.animations[name] = {
-      x: columnStart - 1,
-      y: rowStart - 1,
+      x: cstart,
+      y: rstart,
       length: length - 1,
       isPlaying: false,
       loop: loop || false,
       ticks: 0,
-      startIndex: (columnStart - 1) + ((rowStart - 1) * this.columns),
-      index: (columnStart - 1) + ((rowStart - 1) * this.columns)
+      end: sindex + length - 1,
+      start: sindex,
+      index: sindex
     };
     return this;
   }
@@ -32,15 +36,16 @@ class Sprite {
     return this;
   }
 
-  render(animation) {
+  render(animation, position) {
+    position = position || {x: 0, y: 0};
     this.context.drawImage(
       this.image,
       this.keyWidth * (animation.index - (this.columns * Math.floor(animation.index / this.columns))),
       this.keyHeight * (Math.floor(animation.index / this.columns)),
       this.keyWidth,
       this.keyHeight,
-      0,
-      0,
+      position.x,
+      position.y,
       this.keyWidth,
       this.keyHeight);
   }

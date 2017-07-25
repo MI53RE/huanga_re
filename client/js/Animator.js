@@ -1,16 +1,16 @@
 class Animator {
   constructor() {
     this.canvas = document.getElementById("main");
-    this.canvas.height = 100;
-    this.canvas.width = 100;
-    this.context = "2d";
+    this.canvas.height = 500;
+    this.canvas.width = 500;
+    this.context = this.canvas.getContext("2d");
     this.fps = 4;
     this.sprites = [];
     this.currentlyPlayed = undefined;
   }
 
   addSprite(sprite) {
-    sprite.context = this.canvas.getContext(this.context);
+    sprite.context = this.context;
     this.sprites[sprite.name] = sprite;
     return this;
   }
@@ -20,14 +20,23 @@ class Animator {
     return this;
   }
 
+  refreshCanvas() {
+    let that = this;
+    function refresh() {
+      window.requestAnimationFrame(refresh);
+      that.context.clearRect(0, 0, that.canvas.width, that.canvas.height);
+    }
+    refresh();
+  }
+
   update(animation) {
     animation.ticks += 1;
     if (animation.ticks > this.fps) {
       animation.ticks = 0;
-      if (animation.index < animation.length) {
+      if (animation.index < animation.end) {
         animation.index += 1;
       } else if (animation.loop) {
-        animation.index = 0 + animation.startIndex;
+        animation.index = 0 + animation.start;
       } else {
         window.cancelAnimationFrame(this.currentlyPlayed);
       }
@@ -35,21 +44,20 @@ class Animator {
     return animation;
   }
 
-  play(name, animation) {
-    let s = this.sprites[name];
-    let a = s.animations[animation];
+  play(spritename, animation, position) {
+    let s = this.sprites[spritename];
     let that = this;
+    this.stop();
     function playIt() {
       that.currentlyPlayed = window.requestAnimationFrame(playIt);
-      a = that.update(a);
-      s.render(a);
+      let a = that.update(s.animations[animation]);
+      s.render(a, position);
     }
     playIt();
   }
 
-  stop(name) {
-    let s = this.sprites[name];
-
-
+  stop() {
+    window.cancelAnimationFrame(this.currentlyPlayed);
+    return this;
   }
 }

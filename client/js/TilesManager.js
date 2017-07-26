@@ -1,4 +1,4 @@
-class Animator {
+class TilesManager {
   constructor(canvas) {
     this.context = canvas.context;
     this.sprites = [];

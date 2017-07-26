@@ -13,7 +13,7 @@ class Sprite {
     this.animations = [];
   }
 
-  addAnimation(name, columnStart, rowStart, length, loop) {
+  addAnimation(name, columnStart, rowStart, length, speed, loop) {
     let cstart = columnStart - 1;
     let rstart = rowStart - 1;
     let sindex = (cstart) + ((rstart) * this.columns);
@@ -25,6 +25,7 @@ class Sprite {
       loop: loop || false,
       ticks: 0,
       end: sindex + length - 1,
+      speed: speed,
       start: sindex,
       index: sindex
     };

@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Huanga::re</title>
-  <style type="text/css">canvas {border: solid black 1px;}</style>
+  <style type="text/css">
+    body {position: relative;}
+    canvas {border: solid black 1px;}
+    body > canvas {position: absolute; top: 0; left: 0;}
+  </style>
 </head>
 <body>
-  <canvas id="main" height="100" width="100"></canvas>
   <script src="./js/Canvas.js"></script>
+  <script src="./js/Tile.js"></script>
   <script src="./js/Sprite.js"></script>
   <script src="./js/Animator.js"></script>
+  <script src="./js/TilesManager.js"></script>
   <script src="./js/Team.js"></script>
   <script src="./js/Player.js"></script>
   <script src="./js/Game.js"></script>

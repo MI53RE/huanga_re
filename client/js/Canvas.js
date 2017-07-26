@@ -1,32 +1,49 @@
 class Canvas {
-  constructor() {
-    this.canvas = {height: 0, width: 0};
-    this.context;
+  constructor(context, height, width) {
+    this.canvas = {};
+    this.context = context;
+    this.addCanvas("horizon", height, width);
+    this.addCanvas("background", height, width);
+    this.addCanvas("playground", height, width);
+    this.addCanvas("effects", height, width);
+    this.addCanvas("foreground", height, width);
+    this.addCanvas("skyeffects", height, width);
+    this.addCanvas("lightfilter", height, width);
   }
 
-  addCanvas(canvasId) {
-    this.canvas[canvasId] = document.getElementById(canvasId);
+  addCanvas(canvasId, height, width) {
+    let c = document.createElement("canvas");
+    document.body.appendChild(c);
+    c.id = canvasId;
+    c.width = width;
+    c.height = height;
+    c.context = c.getContext(this.context);
+    this.canvas[canvasId] = c;
     return this;
+  }
+
+  getCanvas(canvasId) {
+    return this.canvas[canvasId];
   }
 
   setCanvasHeight(height, canvasId) {
     if (canvasId) {
-        this.canvas.height = height;
+      this.canvas[canvasId].height = height;
     } else {
-        for (let canvas of this.canvas) {
-            canvas.height = height;
-        }
+      for (let canvas of this.canvas) {
+        canvas.height = height;
+      }
     }
     return this;
   }
 
   setCanvasWidth(width, canvasId) {
     if (canvasId) {
-        this.canvas.width = width;
+      this.canvas[canvasId].width = width;
     } else {
-        for (let canvas of this.canvas) {
-            canvas.width = width;
-        }
+      for (let canvas of this.canvas) {
+        canvas.width = width;
+      }
     }
     return this;
   }
@@ -36,11 +53,11 @@ class Canvas {
     return this;
   }
 
-  refreshCanvas() {
-    let that = this;
+  refreshCanvas(canvasId) {
+    let canvas = this.getCanvas(canvasId);
     function refresh() {
       window.requestAnimationFrame(refresh);
-      that.context.clearRect(0, 0, that.canvas.width, that.canvas.height);
+      canvas.context.clearRect(0, 0, canvas.width, canvas.height);
     }
     refresh();
   }

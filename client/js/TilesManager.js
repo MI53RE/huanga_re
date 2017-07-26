@@ -1,50 +1,45 @@
 class TilesManager {
   constructor(canvas) {
-    this.context = canvas.context;
-    this.sprites = [];
-    this.currentlyPlayed = undefined;
+    this.tileset = {};
+    this.canvas = canvas;
   }
 
-  addSprite(sprite) {
-    sprite.context = this.context;
-    this.sprites[sprite.name] = sprite;
+  addTile(tileset, name, x, y, width, height) {
+    this.tileset[tileset].tiles[name] = new Tile(x, y, width, height);
     return this;
   }
 
-  removeSprite(name) {
-    delete this.sprites[name];
+  addTileset(name, image, columns, rows) {
+    let ts = {};
+    ts.image = new Image();
+    ts.image.src = image;
+    ts.width = ts.image.width;
+    ts.height = ts.image.height;
+    ts.keyWidth = ts.width / columns;
+    ts.keyHeight = ts.height / rows;
+    ts.tiles = {};
+    this.tileset[name] = ts;
     return this;
   }
 
-  update(animation) {
-    animation.ticks += 1;
-    if (animation.ticks > animation.speed) {
-      animation.ticks = 0;
-      if (animation.index < animation.end) {
-        animation.index += 1;
-      } else if (animation.loop) {
-        animation.index = 0 + animation.start;
-      } else {
-        window.cancelAnimationFrame(this.currentlyPlayed);
-      }
-    }
-    return animation;
-  }
-
-  play(spritename, animation, position) {
-    let s = this.sprites[spritename];
-    let that = this;
-    this.stop();
-    function playIt() {
-      that.currentlyPlayed = window.requestAnimationFrame(playIt);
-      let a = that.update(s.animations[animation]);
-      s.render(a, position);
-    }
-    playIt();
-  }
-
-  stop() {
-    window.cancelAnimationFrame(this.currentlyPlayed);
+  removeTile(name) {
+    delete this.tiles[name];
     return this;
+  }
+
+  draw(tileset, tile, posX, posY) {
+    let ts = this.tileset[tileset];
+    let t = ts.tiles[tile];
+    this.canvas.context.drawImage(
+      ts.image,
+      t.x * ts.keyWidth,
+      t.y * ts.keyHeight,
+      t.width * ts.keyWidth,
+      t.height * ts.keyHeight,
+      posX,
+      posY,
+      t.width,
+      t.height
+    );
   }
 }

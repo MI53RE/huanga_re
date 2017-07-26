@@ -1,13 +1,18 @@
-const canvas = new Canvas();
-canvas.addCanvas("main")
-  .setCanvasHeight(500)
-  .setCanvasWidth(500)
-  .setContext("2d");
-canvas.refreshCanvas();
+const canvas = new Canvas("2d", 500, 500);
+canvas.refreshCanvas("playground");
+canvas.refreshCanvas("effects");
+canvas.refreshCanvas("skyeffects");
+canvas.refreshCanvas("lightfilter");
 
-const treeA1 = new Animator(canvas);
-const treeA2 = new Animator(canvas);
-const gameAnimator = new Animator(canvas);
+const foreground = new TilesManager(canvas.getCanvas("foreground"));
+foreground.addTileset("test", "./img/tilesetA.png", 16, 16)
+  .addTile("test", "tree", 5, 7, 2, 2);
+foreground.draw("test", "tree", 50, 50);
+
+
+const treeA1 = new Animator(canvas.getCanvas("foreground"));
+const treeA2 = new Animator(canvas.getCanvas("foreground"));
+const gameAnimator = new Animator(canvas.getCanvas("playground"));
 let player = new Sprite("player", "./img/test_sprite2.png", 8, 4);
 player.addAnimation("down", 1, 1, 8, 4, true);
 player.addAnimation("left", 1, 2, 8, 4, true);
@@ -19,7 +24,7 @@ ground.addAnimation("2", 1, 1, 2, 4, true);
 ground.addAnimation("3", 1, 1, 3, 4, true);
 ground.addAnimation("4", 1, 1, 4, 4, true);
 let tree = new Sprite("tree", "./img/tree_spr.png", 1, 1);
-tree.addAnimation("tree", 1, 1, 1, 1, true);
+tree.addAnimation("tree", 1, 1, 1, 1, false);
 gameAnimator.addSprite(player);
 treeA1.addSprite(tree);
 treeA2.addSprite(tree);

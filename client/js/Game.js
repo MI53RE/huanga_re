@@ -90,37 +90,69 @@ window.onload = function() {
 
   let pos = {x:0, y: 0};
   let distance = 250;
-  let direction = "";
-  setInterval(function(){
-    if (pos.y < 200) {
-      gameAnimator.sprites["player"].context.globalCompositeOperation = "destination-over";
-    } else {
-      gameAnimator.sprites["player"].context.globalCompositeOperation = "source-over";
+  let direction = "up";
+  // setInterval(function(){
+  //   if (pos.y < 200) {
+  //     gameAnimator.sprites["player"].context.globalCompositeOperation = "destination-over";
+  //   } else {
+  //     gameAnimator.sprites["player"].context.globalCompositeOperation = "source-over";
+  //   }
+  //   if (pos.x < distance && pos.y === 0) {
+  //     pos.x += 1;
+  //     if (direction !== "right") {
+  //       direction = "right";
+  //       gameAnimator.play("player", direction, pos);
+  //     }
+  //   } else if (pos.x >= distance && pos.y < distance) {
+  //     pos.y += 1;
+  //     if (direction !== "down") {
+  //       direction = "down";
+  //       gameAnimator.play("player", direction, pos);
+  //     }
+  //   } else if (pos.x > 0 && pos.y >= distance) {
+  //     pos.x -= 1;
+  //     if (direction !== "left") {
+  //       direction = "left";
+  //       gameAnimator.play("player", direction, pos);
+  //     }
+  //   } else if (pos.x === 0 && pos.y > 0) {
+  //     pos.y -= 1;
+  //     if (direction !== "up") {
+  //       direction = "up";
+  //       gameAnimator.play("player", direction, pos);
+  //     }
+  //   }
+  // }, 5);
+  gameAnimator.play("player", direction, pos);
+  document.addEventListener("keypress", function(e) {
+    e.preventDefault();
+    switch(e.key) {
+    case "z":
+    case "w":
+    case "ArrowUp":
+      direction = "up";
+      pos.y -= 5;
+      gameAnimator.play("player", direction, pos);
+      break;
+    case "q":
+    case "a":
+    case "ArrowLeft":
+      direction = "left";
+      pos.x -= 5;
+      gameAnimator.play("player", direction, pos);
+      break;
+    case "d":
+    case "ArrowRight":
+      direction = "right";
+      pos.x += 5;
+      gameAnimator.play("player", direction, pos);
+      break;
+    case "s":
+    case "ArrowDown":
+      direction = "down";
+      pos.y += 5;
+      gameAnimator.play("player", direction, pos);
+      break;
     }
-    if (pos.x < distance && pos.y === 0) {
-      pos.x += 1;
-      if (direction !== "right") {
-        direction = "right";
-        gameAnimator.play("player", direction, pos);
-      }
-    } else if (pos.x >= distance && pos.y < distance) {
-      pos.y += 1;
-      if (direction !== "down") {
-        direction = "down";
-        gameAnimator.play("player", direction, pos);
-      }
-    } else if (pos.x > 0 && pos.y >= distance) {
-      pos.x -= 1;
-      if (direction !== "left") {
-        direction = "left";
-        gameAnimator.play("player", direction, pos);
-      }
-    } else if (pos.x === 0 && pos.y > 0) {
-      pos.y -= 1;
-      if (direction !== "up") {
-        direction = "up";
-        gameAnimator.play("player", direction, pos);
-      }
-    }
-  }, 5);
+  });
 };

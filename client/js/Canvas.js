@@ -2,6 +2,8 @@ class Canvas {
   constructor(context, height, width) {
     this.canvas = {};
     this.context = context;
+    this.height = height;
+    this.width = width;
     this.addCanvas("horizon", height, width);
     this.addCanvas("background", height, width);
     this.addCanvas("playground", height, width);

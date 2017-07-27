@@ -1,7 +1,30 @@
 class TilesManager {
-  constructor(canvas) {
+  constructor(...canvas) {
     this.tileset = {};
-    this.canvas = canvas;
+    this.canvas = {};
+    let that = this;
+    for (let c of canvas) {
+      c.draw = function(tileset, tile, posX, posY) {
+        let ts = that.tileset[tileset];
+        let t = ts.tiles[tile];
+        this.context.drawImage(
+          ts.image,
+          t.x * ts.keyWidth,
+          t.y * ts.keyHeight,
+          t.width * ts.keyWidth,
+          t.height * ts.keyHeight,
+          posX,
+          posY,
+          t.width * ts.keyWidth,
+          t.height * ts.keyHeight
+        );
+      };
+      this.canvas[c.id] = c;
+    }
+  }
+
+  getCanvas(name) {
+    return this.canvas[name];
   }
 
   addTile(tileset, name, x, y, width, height) {
@@ -20,21 +43,5 @@ class TilesManager {
     ts.tiles = {};
     this.tileset[name] = ts;
     return this;
-  }
-
-  draw(tileset, tile, posX, posY) {
-    let ts = this.tileset[tileset];
-    let t = ts.tiles[tile];
-    this.canvas.context.drawImage(
-      ts.image,
-      t.x * ts.keyWidth,
-      t.y * ts.keyHeight,
-      t.width * ts.keyWidth,
-      t.height * ts.keyHeight,
-      posX,
-      posY,
-      t.width * ts.keyWidth,
-      t.height * ts.keyHeight
-    );
   }
 }

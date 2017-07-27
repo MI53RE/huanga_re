@@ -3,8 +3,8 @@ class Sprite {
     this.name = name;
     this.image = new Image();
     this.image.src = image;
-    this.width = this.image.width;
-    this.height = this.image.height;
+    this.width = this.image.naturalWidth;
+    this.height = this.image.naturalHeight;
     this.columns = columns;
     this.rows = rows;
     this.length = length;

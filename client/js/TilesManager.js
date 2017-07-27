@@ -13,17 +13,12 @@ class TilesManager {
     let ts = {};
     ts.image = new Image();
     ts.image.src = image;
-    ts.width = ts.image.width;
-    ts.height = ts.image.height;
+    ts.width = ts.image.naturalWidth;
+    ts.height = ts.image.naturalHeight;
     ts.keyWidth = ts.width / columns;
     ts.keyHeight = ts.height / rows;
     ts.tiles = {};
     this.tileset[name] = ts;
-    return this;
-  }
-
-  removeTile(name) {
-    delete this.tiles[name];
     return this;
   }
 
@@ -38,8 +33,8 @@ class TilesManager {
       t.height * ts.keyHeight,
       posX,
       posY,
-      t.width,
-      t.height
+      t.width * ts.keyWidth,
+      t.height * ts.keyHeight
     );
   }
 }

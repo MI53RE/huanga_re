@@ -79,80 +79,61 @@ window.onload = function() {
   background.draw("tree", "bottom", 200, 440);
 
   const gameAnimator = new Animator(canvas.getCanvas("playground"));
+  const gameAnimator2 = new Animator(canvas.getCanvas("playground"));
 
-  let player = new Sprite("player", "./img/test_sprite2.png", 8, 4);
-  player.addAnimation("down", 1, 1, 8, 4, true);
-  player.addAnimation("left", 1, 2, 8, 4, true);
-  player.addAnimation("right", 1, 3, 8, 4, true);
-  player.addAnimation("up", 1, 4, 8, 4, true);
+  let playerSpr = new Sprite("player", "./img/test_sprite2.png", 8, 4);
+  playerSpr.addAnimation("down", 1, 1, 8, 4, true);
+  playerSpr.addAnimation("left", 1, 2, 8, 4, true);
+  playerSpr.addAnimation("right", 1, 3, 8, 4, true);
+  playerSpr.addAnimation("up", 1, 4, 8, 4, true);
+
+  let player2Spr = new Sprite("player", "./img/test_sprite2.png", 8, 4);
+  player2Spr.addAnimation("down", 1, 1, 8, 4, true);
+  player2Spr.addAnimation("left", 1, 2, 8, 4, true);
+  player2Spr.addAnimation("right", 1, 3, 8, 4, true);
+  player2Spr.addAnimation("up", 1, 4, 8, 4, true);
   
-  gameAnimator.addSprite(player);
-
+  gameAnimator.addSprite(playerSpr);
+  gameAnimator2.addSprite(player2Spr);
   let pos = {x:0, y: 0};
-  let distance = 250;
-  let direction = "up";
-  // setInterval(function(){
-  //   if (pos.y < 200) {
-  //     gameAnimator.sprites["player"].context.globalCompositeOperation = "destination-over";
-  //   } else {
-  //     gameAnimator.sprites["player"].context.globalCompositeOperation = "source-over";
-  //   }
-  //   if (pos.x < distance && pos.y === 0) {
-  //     pos.x += 1;
-  //     if (direction !== "right") {
-  //       direction = "right";
-  //       gameAnimator.play("player", direction, pos);
-  //     }
-  //   } else if (pos.x >= distance && pos.y < distance) {
-  //     pos.y += 1;
-  //     if (direction !== "down") {
-  //       direction = "down";
-  //       gameAnimator.play("player", direction, pos);
-  //     }
-  //   } else if (pos.x > 0 && pos.y >= distance) {
-  //     pos.x -= 1;
-  //     if (direction !== "left") {
-  //       direction = "left";
-  //       gameAnimator.play("player", direction, pos);
-  //     }
-  //   } else if (pos.x === 0 && pos.y > 0) {
-  //     pos.y -= 1;
-  //     if (direction !== "up") {
-  //       direction = "up";
-  //       gameAnimator.play("player", direction, pos);
-  //     }
-  //   }
-  // }, 5);
-  gameAnimator.play("player", direction, pos);
-  document.addEventListener("keypress", function(e) {
-    e.preventDefault();
-    switch(e.key) {
-    case "z":
-    case "w":
-    case "ArrowUp":
-      direction = "up";
-      pos.y -= 5;
-      gameAnimator.play("player", direction, pos);
-      break;
-    case "q":
-    case "a":
-    case "ArrowLeft":
-      direction = "left";
-      pos.x -= 5;
-      gameAnimator.play("player", direction, pos);
-      break;
-    case "d":
-    case "ArrowRight":
-      direction = "right";
-      pos.x += 5;
-      gameAnimator.play("player", direction, pos);
-      break;
-    case "s":
-    case "ArrowDown":
-      direction = "down";
-      pos.y += 5;
-      gameAnimator.play("player", direction, pos);
-      break;
+  let pos2 = {x:300, y: 0};
+
+  const player = new Player(1, "Yuki", pos, gameAnimator, "right", true);
+  const player2 = new Player(2, "Saruki", pos2, gameAnimator2, "left", true);
+  player2.play();
+  player.play();
+  let distance = 450;
+  player2.isMovingOn();
+  setInterval(function(){
+    if (pos2.x < distance && pos2.y === 0) {
+      player2.action = "right";
+    } else if (pos2.x >= distance && pos2.y < distance) {
+      player2.action = "down";
+    } else if (pos2.x > 0 && pos2.y >= distance) {
+      player2.action = "left";
+    } else if (pos2.x === 0 && pos2.y > 0) {
+      player2.action = "up";
+    }
+  }, 5);
+  // let kb = new KeyboardEvent("keydown");
+
+  document.addEventListener("keydown", function(e) {
+    if (player.isMain === true) {
+      if (player.tooglePressed(e.key, true) === true) {
+        player.action = player.getInput(e.key).action;
+        player.isMovingOn();
+      }
+    }
+  });
+  document.addEventListener("keyup", function(e) {
+    if (player.isMain === true) {
+      if(player.tooglePressed(e.key, false) === true) {
+        if (player.testInput() === false) {
+          player.isMovingOff();
+        } else {
+          player.action = player.getInputPressed().action;
+        }
+      }
     }
   });
 };

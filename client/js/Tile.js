@@ -1,5 +1,6 @@
 class Tile {
-  constructor(x, y, width, height) {
+  constructor(tileset, x, y, width, height) {
+    this.tileset = tileset;
     this.x = x - 1;
     this.y = y - 1;
     this.width = width;

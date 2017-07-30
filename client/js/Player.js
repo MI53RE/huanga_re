@@ -9,11 +9,16 @@ class Player {
     this.action = action;
     this.speed = 5;
     this.keypress = 0;
+    this.jumpHeight = 0;
+    this.jumping = true;
+    this.jumpFall = false;
+    this.jumpMaxHeight = 0;
     this.inputs = [
-      {action: "up", keys: ["z", "ArrowUp"], pressed: false},
+      {action: "up", keys: ["z", "w", "ArrowUp"], pressed: false},
       {action: "down", keys: ["s", "ArrowDown"], pressed: false},
-      {action: "left", keys: ["q", "ArrowLeft"], pressed: false},
-      {action: "right", keys: ["d", "ArrowRight"], pressed: false}
+      {action: "left", keys: ["q", "a", "ArrowLeft"], pressed: false},
+      {action: "right", keys: ["d", "ArrowRight"], pressed: false},
+      {action: "jump", keys: [" "], pressed: false}
     ];
   }
 
@@ -27,15 +32,25 @@ class Player {
 
   getInput(key) {
     for (let input of this.inputs) {
-      if (input.keys.indexOf(key) !== -1)
+      if (input.keys.indexOf(key) !== -1) {
         return input;
+      }
     }
     return true;
   }
   getInputPressed() {
     for (let input of this.inputs) {
-      if (input.pressed)
+      if (input.pressed) {
         return input;
+      }
+    }
+    return false;
+  }
+  isPressed(action) {
+    for (let input of this.inputs) {
+      if (input.action === action && input.pressed === true) {
+        return input;
+      }
     }
     return false;
   }
@@ -52,8 +67,9 @@ class Player {
 
   testInput() {
     for (let input of this.inputs) {
-      if (input.pressed === true)
+      if (input.pressed === true) {
         return true;
+      }
     }
     return false;
   }
@@ -64,19 +80,34 @@ class Player {
     this.animator.stop();
     function playIt() {
       if (that.isMoving === true) {
-        switch (that.action) {
-        case "up":
+        if (that.isPressed("up")){
           that.position.y -= that.speed;
-          break;
-        case "left":
-          that.position.x -= that.speed;
-          break;
-        case "right":
-          that.position.x += that.speed;
-          break;
-        case "down":
+        }
+        if (that.isPressed("down")){
           that.position.y += that.speed;
-          break;
+        }
+        if (that.isPressed("left")){
+          that.position.x -= that.speed;
+        }
+        if (that.isPressed("right")){
+          that.position.x += that.speed;
+        }
+        if (that.isPressed("jump")) {
+          that.jumping = true;
+          that.jumpFall = false;
+        }
+        if (that.jumping === true) {
+          if (that.jumpFall === false && that.jumpHeight < that.jumpMaxHeight) {
+            that.jumpHeight += 1;
+            that.position.x -= that.speed;
+          } else if (that.jumpFall === false && that.jumpHeight >= that.jumpMaxHeight) {
+            that.jumpFall = true;
+          } else if (that.jumpHeight > 0) {
+            that.jumpHeight -= 1;
+            that.position.x -= that.speed;
+          } else {
+            that.jumping = false;
+          }          
         }
       }
       that.animator.currentlyPlayed = window.requestAnimationFrame(playIt);

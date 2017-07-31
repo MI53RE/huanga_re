@@ -22,22 +22,22 @@ window.onload = function() {
     .addTile("outside_ground", "highgrass", 33, 1, 4, 4)
 
     .addTile("ground", "sd_f", 11, 47, 4, 4)
-    .addTile("ground", "sd_w_top_nwest", 9, 45, 4, 4)
-    .addTile("ground", "sd_w_top_north", 11, 45, 4, 4)
-    .addTile("ground", "sd_w_top_neast", 13, 45, 4, 4)
-    .addTile("ground", "sd_w_top_east", 13, 47, 4, 4)
-    .addTile("ground", "sd_w_top_seast", 13, 49, 4, 4)
-    .addTile("ground", "sd_w_top_south", 11, 49, 4, 4)
-    .addTile("ground", "sd_w_top_swest", 9, 49, 4, 4)
-    .addTile("ground", "sd_w_top_west", 9, 47, 4, 4)
+    .addTile("ground", "sd_w_t_nw", 9, 45, 4, 4)
+    .addTile("ground", "sd_w_t_n", 11, 45, 4, 4)
+    .addTile("ground", "sd_w_t_ne", 13, 45, 4, 4)
+    .addTile("ground", "sd_w_t_e", 13, 47, 4, 4)
+    .addTile("ground", "sd_w_t_se", 13, 49, 4, 4)
+    .addTile("ground", "sd_w_t_s", 11, 49, 4, 4)
+    .addTile("ground", "sd_w_t_sw", 9, 49, 4, 4)
+    .addTile("ground", "sd_w_t_w", 9, 47, 4, 4)
     
-    .addTile("ground", "sd_w_mid_east", 13, 53, 4, 4)
-    .addTile("ground", "sd_w_mid_south", 11, 53, 4, 4)
-    .addTile("ground", "sd_w_mid_west", 9, 53, 4, 4)
+    .addTile("ground", "sd_w_m_e", 13, 53, 4, 4)
+    .addTile("ground", "sd_w_m_s", 11, 53, 4, 4)
+    .addTile("ground", "sd_w_m_w", 9, 53, 4, 4)
     
-    .addTile("ground", "sd_w_bot_east", 13, 57, 4, 4)
-    .addTile("ground", "sd_w_bot_south", 11, 57, 4, 4)
-    .addTile("ground", "sd_w_bot_west", 9, 57, 4, 4);
+    .addTile("ground", "sd_w_b_e", 13, 57, 4, 4)
+    .addTile("ground", "sd_w_b_s", 11, 57, 4, 4)
+    .addTile("ground", "sd_w_b_w", 9, 57, 4, 4);
 
   const foreground = tm.getCanvas("foreground");
   const background = tm.getCanvas("background");
@@ -76,22 +76,22 @@ window.onload = function() {
 
   // const cf = 32; // cellFactor
   // foreground.draw("sd_f", 1 * cf, 1 * cf);
-  // foreground.draw("sd_w_top_nwest", 0 * cf, 0 * cf);
-  // foreground.draw("sd_w_top_north", 1 * cf, 0 * cf);
-  // foreground.draw("sd_w_top_neast", 2 * cf, 0 * cf);
-  // foreground.draw("sd_w_top_east", 2 * cf, 1 * cf);
-  // foreground.draw("sd_w_top_seast", 2 * cf, 2 * cf);
-  // foreground.draw("sd_w_top_south", 1 * cf, 2 * cf);
-  // foreground.draw("sd_w_top_swest", 0 * cf, 2 * cf);
-  // foreground.draw("sd_w_top_west", 0 * cf, 1 * cf);
+  // foreground.draw("sd_w_t_nw", 0 * cf, 0 * cf);
+  // foreground.draw("sd_w_t_n", 1 * cf, 0 * cf);
+  // foreground.draw("sd_w_t_ne", 2 * cf, 0 * cf);
+  // foreground.draw("sd_w_t_e", 2 * cf, 1 * cf);
+  // foreground.draw("sd_w_t_se", 2 * cf, 2 * cf);
+  // foreground.draw("sd_w_t_s", 1 * cf, 2 * cf);
+  // foreground.draw("sd_w_t_sw", 0 * cf, 2 * cf);
+  // foreground.draw("sd_w_t_w", 0 * cf, 1 * cf);
 
-  // foreground.draw("sd_w_mid_west", 0 * cf, 3 * cf);
-  // foreground.draw("sd_w_mid_south", 1 * cf, 3 * cf);
-  // foreground.draw("sd_w_mid_east", 2 * cf, 3 * cf);
+  // foreground.draw("sd_w_m_w", 0 * cf, 3 * cf);
+  // foreground.draw("sd_w_m_s", 1 * cf, 3 * cf);
+  // foreground.draw("sd_w_m_e", 2 * cf, 3 * cf);
 
-  // foreground.draw("sd_w_bot_west", 0 * cf, 4 * cf);
-  // foreground.draw("sd_w_bot_south", 1 * cf, 4 * cf);
-  // foreground.draw("sd_w_bot_east", 2 * cf, 4 * cf);
+  // foreground.draw("sd_w_b_w", 0 * cf, 4 * cf);
+  // foreground.draw("sd_w_b_s", 1 * cf, 4 * cf);
+  // foreground.draw("sd_w_b_e", 2 * cf, 4 * cf);
 
   // foreground.draw("tree", "top", 0, 0);
   // background.draw("tree", "bottom", 0, 240);
@@ -113,89 +113,139 @@ window.onload = function() {
   // ]
   const layers = [
     [
+      {skip: 7},
       {
-        sd_w_mid_west: [0],
-        sd_w_mid_south: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
-        sd_w_mid_east: [18]
+        sd_w_b_w: [0],
+        sd_w_b_s: [1,2,3,4,5,6,7,8,9,16,17],
+        sd_w_b_e: [18],
       },
+      {},
       {
-        sd_w_mid_west: [0],
-        sd_w_mid_south: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
-        sd_w_mid_east: [18]
-      },
-      {
-        sd_w_mid_west: [0],
-        sd_w_mid_south: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
-        sd_w_mid_east: [18]
-      },
-      {
-        sd_w_bot_west: [0],
-        sd_w_bot_south: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
-        sd_w_bot_east: [18]
-      },
-      {
-        sd_w_top_swest: [0],
-        sd_w_top_south: [1,2,3,4,5,6,7,8,9,16,17],
-        sd_w_top_seast: [18]
-      },
-      {
-        sd_w_mid_west: [0],
-        sd_w_mid_south: [1,2,3,4,5,6,7,8,9,16,17],
-        sd_w_mid_east: [18],
-        sd_w_top_west: [10],
-        sd_w_top_east: [15]
-      },
-      {
-        sd_w_mid_west: [0],
-        sd_w_mid_south: [1,2,3,4,5,6,7,8,9,16,17],
-        sd_w_mid_east: [18],
-        sd_w_top_swest: [10],
-        sd_w_top_south: [11,12,13,14],
-        sd_w_top_seast: [15]
-      },
-      {
-        sd_w_bot_west: [0],
-        sd_w_bot_south: [1,2,3,4,5,6,7,8,9,16,17],
-        sd_w_bot_east: [18],
-        sd_w_mid_west: [10],
-        sd_w_mid_south: [11,12,13,14],
-        sd_w_mid_east: [15]
-      },
-      {
-        sd_w_bot_west: [10],
-        sd_w_bot_south: [11,12,13,14],
-        sd_w_bot_east: [15]
+        sd_w_b_w: [10],
+        sd_w_b_s: [11,12,13,14],
+        sd_w_b_e: [15]
       },
       {},
       {},
       {},
-      {},
       {
-        sd_w_top_nwest: [5],
-        sd_w_top_north: [6],
-        sd_w_top_neast: [7]
+        sd_w_t_nw: [5],
+        sd_w_t_n: [6],
+        sd_w_t_ne: [7]
       },
       {
-        sd_w_top_west: [5],
+        sd_w_t_w: [5],
         sd_f: [6],
-        sd_w_top_east: [7]
+        sd_w_t_e: [7]
       },
       {
-        sd_w_top_west: [5],
+        sd_w_t_w: [5],
         sd_f: [6],
-        sd_w_top_east: [7]
+        sd_w_t_e: [7]
       },
       {
-        sd_w_top_swest: [5],
-        sd_w_top_south: [6],
-        sd_w_top_seast: [7],
+        sd_w_t_sw: [5],
+        sd_w_t_s: [6],
+        sd_w_t_se: [7],
       },
       {
-        sd_w_bot_west: [5],
-        sd_w_bot_south: [6],
-        sd_w_bot_east: [7],
+        sd_w_b_w: [5],
+        sd_w_b_s: [6],
+        sd_w_b_e: [7],
       },
-    ]
+    ],
+    [
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {
+        sd_w_m_w: [0],
+        sd_w_m_s: [1,2,3,4,5,6,7,8,9,16,17],
+        sd_w_m_e: [18]
+      },
+      {},
+      {
+        sd_w_m_w: [10],
+        sd_w_m_s: [11,12,13,14],
+        sd_w_m_e: [15]
+      }
+    ],
+    [
+      {},
+      {},
+      {},
+      {},
+      {},
+      {
+        sd_w_m_w: [0],
+        sd_w_m_s: [1,2,3,4,5,6,7,8,9,16,17],
+        sd_w_m_e: [18]
+      },
+      {},
+      {
+        sd_w_m_w: [10],
+        sd_w_m_s: [11,12,13,14],
+        sd_w_m_e: [15]
+      }
+    ],
+    [
+      {},
+      {},
+      {},
+      {},
+      {
+        sd_w_t_sw: [0],
+        sd_w_t_s: [1,2,3,4,5,6,7,8,9,16,17],
+        sd_w_t_se: [18]
+      },
+      {
+        sd_w_t_w: [10],
+        sd_w_t_e: [15]
+      },
+      {
+        sd_w_t_sw: [10],
+        sd_w_t_s: [11,12,13,14],
+        sd_w_t_se: [15]
+      }
+
+    ],
+    [
+      {},
+      {},
+      {},
+      {
+        sd_w_b_w: [0],
+        sd_w_b_s: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        sd_w_b_e: [18]
+      }
+    ],
+    [
+      {},
+      {},
+      {
+        sd_w_m_w: [0],
+        sd_w_m_s: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        sd_w_m_e: [18]
+      }
+    ],
+    [
+      {},
+      {
+        sd_w_m_w: [0],
+        sd_w_m_s: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        sd_w_m_e: [18]
+      }
+    ],
+    [
+      {
+        sd_w_m_w: [0],
+        sd_w_m_s: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+        sd_w_m_e: [18]
+      }
+    ],
   ];  
 
   // const layers2 = [
@@ -231,15 +281,7 @@ window.onload = function() {
   //   ],
   // ];
 
-  for (let layer of layers) {
-    layer.forEach(function(cell, row) {
-      for (let tile in cell)  {
-        for (let col of cell[tile]) {
-          background.draw(tile, 32 * col, 32 * row);
-        }
-      }
-    });
-  }
+
 
   const gameAnimator = new Animator(canvas.getCanvas("playground"));
   const gameAnimator2 = new Animator(canvas.getCanvas("playground"));
@@ -304,4 +346,19 @@ window.onload = function() {
       }
     }
   });
+
+  for (let layer of layers) {
+    for (let row = 0; row < layer.length; row += 1) { //forEach(function(cell, row) {
+      let cell = layer[row];
+        if (cell.skip) {
+          row = (row + cell.skip - 1);
+        } else {
+          for (let tile in cell)  {
+            for (let col of cell[tile]) {
+              background.draw(tile, 32 * col, 32 * row);
+            }
+          }
+        }
+    };//);
+  }
 };

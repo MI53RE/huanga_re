@@ -30,11 +30,11 @@ window.onload = function() {
     .addTile("ground", "sd_w_t_s", 11, 49, 4, 4)
     .addTile("ground", "sd_w_t_sw", 9, 49, 4, 4)
     .addTile("ground", "sd_w_t_w", 9, 47, 4, 4)
-    
+
     .addTile("ground", "sd_w_m_e", 13, 53, 4, 4)
     .addTile("ground", "sd_w_m_s", 11, 53, 4, 4)
     .addTile("ground", "sd_w_m_w", 9, 53, 4, 4)
-    
+
     .addTile("ground", "sd_w_b_e", 13, 57, 4, 4)
     .addTile("ground", "sd_w_b_s", 11, 57, 4, 4)
     .addTile("ground", "sd_w_b_w", 9, 57, 4, 4);
@@ -98,7 +98,7 @@ window.onload = function() {
 
   // foreground.draw("tree", "top", 200, 200);
   // background.draw("tree", "bottom", 200, 440);
-  
+
   function randDestination() {
     let x = Math.floor(Math.random() * canvas.width + 1);
     let y = Math.floor(Math.random() * canvas.height + 1);
@@ -263,7 +263,7 @@ window.onload = function() {
     //     sd_w_m_e: [18]
     //   }
     // ],
-  ];  
+  ];
 
   // const layers2 = [
   //   [
@@ -314,7 +314,7 @@ window.onload = function() {
   player2Spr.addAnimation("left", 1, 2, 8, 4, true);
   player2Spr.addAnimation("right", 1, 3, 8, 4, true);
   player2Spr.addAnimation("up", 1, 4, 8, 4, true);
-  
+
   gameAnimator.addSprite(playerSpr);
   gameAnimator2.addSprite(player2Spr);
   let pos = {x:0, y: 0};
